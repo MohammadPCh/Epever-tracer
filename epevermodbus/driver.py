@@ -19,7 +19,7 @@ class EpeverChargeController(minimalmodbus.Instrument):
         self.serial.bytesize = 8
         self.serial.parity = serial.PARITY_NONE
         self.serial.stopbits = 1
-        self.serial.timeout = 1.2
+        self.serial.timeout = 1
         self.mode = minimalmodbus.MODE_RTU
         self.clear_buffers_before_each_transaction = True
 
@@ -37,7 +37,7 @@ class EpeverChargeController(minimalmodbus.Instrument):
 
     def get_solar_voltage(self):
         """PV array input in volts"""
-        return self.retriable_read_register(0x9605, 0, 4)
+        return self.retriable_read_register(0x3100, 2, 4)
 
     def get_solar_current(self):
         """PV array input in amps"""
@@ -93,7 +93,7 @@ class EpeverChargeController(minimalmodbus.Instrument):
 
     def get_battery_temperature(self):
         """battery temperature"""
-        return self.retriable_read_register(0x354F, 2, 4)
+        return self.retriable_read_register(0x3110, 2, 4)
 
     def get_remote_battery_temperature(self):
         """The battery temperature measured by remote temperature sensor"""
@@ -252,6 +252,7 @@ class EpeverChargeController(minimalmodbus.Instrument):
 
     def get_battery_type(self):
         """Battery type"""
+        print(type(self.retriable_read_register(0x9000, 2, 3)))
         return {0: "USER_DEFINED", 1: "SEALED", 2: "GEL", 3: "FLOODED"}[
             self.retriable_read_register(0x9000, 2, 3)
         ]

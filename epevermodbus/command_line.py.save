@@ -1,11 +1,11 @@
-from driver import EpeverChargeController
+rom epevermodbus.driver import EpeverChargeController
 import argparse
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--portname", help="Port name for example /dev/ttyUSB0", default="/dev/ttyXRUSB1"
+        "--portname", help="Port name for example /dev/ttyUSB0", default="/dev/ttyUSB0"
     )
     parser.add_argument(
         "--slaveaddress", help="Slave address 1-247", default=1, type=int
