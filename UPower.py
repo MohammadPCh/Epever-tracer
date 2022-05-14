@@ -112,14 +112,12 @@ class UPower:
 
     # connect to device
     def __init__(self, device = '/dev/ttyXRUSB0', serialid = 1):
-        print("init Called")
         self.device = device
         self.id = serialid
         self.instrument = 0
 
 
     def connect(self):
-        print("Connect called")
         try:
             self.instrument = minimalmodbus.Instrument(self.device, self.id)
         except minimalmodbus.serial.SerialException:
@@ -135,7 +133,6 @@ class UPower:
 
     # read informational register
     def readReg(self,register):
-        print("read reg")
         try:
                 reading = self.instrument.read_register(register, 2, 4)
                 return reading
@@ -145,7 +142,6 @@ class UPower:
 
     # read parameter
     def readParam(self,register,decimals=2):
-        print("read param")
         try:
                 reading = self.instrument.read_register(register, decimals, 3)
                 return reading
