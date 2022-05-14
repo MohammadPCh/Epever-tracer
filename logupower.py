@@ -3,7 +3,7 @@ import sys
 import datetime
 import time
 import minimalmodbus
-from influxdb import InfluxDBClient
+#from influxdb import InfluxDBClient
 from UPower import *
 
 # influx configuration - edit these
@@ -17,7 +17,7 @@ measurement_name = "solar"
 
 up = UPower()
 if (up.connect() < 0):
-	print("Could not connect to the device")
+	print ("Could not connect to the device")
 	exit -2
 
 # get timestamps
@@ -58,9 +58,9 @@ body_solar = [
     }
 ]
 
-print(body_solar)
+print (body_solar)
 
 # connect to influx
-ifclient = InfluxDBClient(ifhost,ifport,ifuser,ifpass,ifdb)
+#ifclient = InfluxDBClient(ifhost,ifport,ifuser,ifpass,ifdb)
 # write the measurement
-ifclient.write_points(body_solar)
+#ifclient.write_points(body_solar)
