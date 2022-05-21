@@ -111,4 +111,4 @@ body_solar = [
 
 print (body_solar)
 
-# write_api.write(bucket=bucket, org=org, body_solar)
+write_api.write("my-bucket", "my-org", body_solar)
