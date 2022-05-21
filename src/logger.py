@@ -2,12 +2,12 @@ import secrets
 import influxdb_client, os, time
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
-from src.drivers.UPower import *
-from src.drivers.Epever import EpeverChargeController
+from UPower import *
+from Epever import EpeverChargeController
 
-token = secrets.INFLUXDB_TOKEN
-org = secrets.INFLUXDB_ORG
-url = secrets.INFLUXDB_URL
+token = secrets.token
+org = secrets.org
+url = secrets.url
 bucket="SolarPi"
 
 client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)

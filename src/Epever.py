@@ -1,7 +1,7 @@
 import minimalmodbus
 import serial
 from retrying import retry
-from src.helper.extract_bits import extract_bits
+from extract_bits import extract_bits
 
 
 class EpeverChargeController(minimalmodbus.Instrument):
