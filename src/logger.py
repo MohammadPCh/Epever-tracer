@@ -4,6 +4,7 @@ from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 from UPower import *
 from Epever import EpeverChargeController
+from flatdict import FlatDict
 
 token = secrets.token
 org = secrets.org
@@ -22,39 +23,8 @@ if (up.connect() < 0):
 
 ep = EpeverChargeController()
 
-   
-body_solar = [
-    {
-        "measurement": "UPower",
-        "fields": {
-            "PVvolt": up.readReg(PVvolt),
-            "PVamps": up.readReg(PVamps),
-            "PVwatt": up.readReg(PVwattL),
-            "PVkwh": up.readReg(PVkwhL),
-            "PVtemp": up.readReg(PVtemp),
-            "BAvolt": up.readReg(BAvolt),
-            "BAamps": up.readReg(BAamps),
-            "BAwatt": up.readReg(BAwattL),
-            "BAah": up.readReg(BAah),
-            "BAtemp": up.readReg(BAtemp),
-            "ACvoltIN": up.readReg(ACvoltIN),
-            "ACvolt": up.readReg(ACvolt),
-            "ACamps": up.readReg(ACamps),
-            "ACwatt": up.readReg(ACwattL),
-            "ACtemp": up.readReg(ACtemp),
-            "IVwattL": up.readReg(IVwattL),
-            "IVwattH": up.readReg(IVwattH),
-            "IVherz": up.readReg(IVherz),
-            "IVvoltIN": up.readReg(IVvoltIN),
-            "IVvolt": up.readReg(IVvolt),
-            "IVamps": up.readReg(IVamps),
-            "IVstat": up.getIV(),
-            "ACstat": up.getAC()
-        }
-    },
-	{
-		"measurement": "EPever",
-		"fields": {
+
+ep_flat = FlatDict({
 			"Solar voltage": ep.get_solar_voltage(),
 			"Solar current": ep.get_solar_current(),
 			"Solar power": ep.get_solar_current(),
@@ -105,7 +75,40 @@ body_solar = [
 			"Battery discharge": ep.get_battery_discharge(),
 			"Battery charge": ep.get_battery_charge(),
 			"Charging mode": ep.get_charging_mode(),
-		}
+		})
+   
+body_solar = [
+    {
+        "measurement": "UPower",
+        "fields": {
+            "PVvolt": up.readReg(PVvolt),
+            "PVamps": up.readReg(PVamps),
+            "PVwatt": up.readReg(PVwattL),
+            "PVkwh": up.readReg(PVkwhL),
+            "PVtemp": up.readReg(PVtemp),
+            "BAvolt": up.readReg(BAvolt),
+            "BAamps": up.readReg(BAamps),
+            "BAwatt": up.readReg(BAwattL),
+            "BAah": up.readReg(BAah),
+            "BAtemp": up.readReg(BAtemp),
+            "ACvoltIN": up.readReg(ACvoltIN),
+            "ACvolt": up.readReg(ACvolt),
+            "ACamps": up.readReg(ACamps),
+            "ACwatt": up.readReg(ACwattL),
+            "ACtemp": up.readReg(ACtemp),
+            "IVwattL": up.readReg(IVwattL),
+            "IVwattH": up.readReg(IVwattH),
+            "IVherz": up.readReg(IVherz),
+            "IVvoltIN": up.readReg(IVvoltIN),
+            "IVvolt": up.readReg(IVvolt),
+            "IVamps": up.readReg(IVamps),
+            "IVstat": up.getIV(),
+            "ACstat": up.getAC()
+        }
+    },
+	{
+		"measurement": "EPever",
+		"fields": ep_flat,
 	}
 ]
 
