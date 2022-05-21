@@ -20,7 +20,7 @@ if (up.connect() < 0):
 	print ("Could not connect to the UPower device")
 	exit -2
 
-ep = EpeverChargeController(args.portname, args.slaveaddress)
+ep = EpeverChargeController()
 
    
 body_solar = [
