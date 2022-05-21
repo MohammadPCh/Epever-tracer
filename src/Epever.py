@@ -13,7 +13,7 @@ class EpeverChargeController(minimalmodbus.Instrument):
 
     """
 
-    def __init__(self, portname = '/dev/ttyXRUSB0', slaveaddress = 1):
+    def __init__(self, portname = '/dev/ttyXRUSB1', slaveaddress = 1):
         minimalmodbus.Instrument.__init__(self, portname, slaveaddress)
         self.serial.baudrate = 115200
         self.serial.bytesize = 8
