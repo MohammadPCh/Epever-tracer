@@ -3,16 +3,16 @@ import sys
 import datetime
 import time
 import minimalmodbus
-#from influxdb import InfluxDBClient
+from influxdb import InfluxDBClient
 from UPower import *
 
 # influx configuration - edit these
 ifuser = "grafana"
 ifpass = "solar"
-ifdb   = "solar"
+ifdb   = "SoliPi"
 ifhost = "127.0.0.1"
 ifport = 8086
-measurement_name = "solar"
+measurement_name = "upower"
 
 
 up = UPower()
@@ -61,6 +61,6 @@ body_solar = [
 print (body_solar)
 
 # connect to influx
-#ifclient = InfluxDBClient(ifhost,ifport,ifuser,ifpass,ifdb)
+ifclient = InfluxDBClient(ifhost,ifport,ifuser,ifpass,ifdb)
 # write the measurement
-#ifclient.write_points(body_solar)
+ifclient.write_points(body_solar)
